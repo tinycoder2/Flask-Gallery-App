@@ -1,12 +1,37 @@
 {% extends "base.html" %} {% block body %}
+<head>
+<meta charset="UTF-8"  name="viewport" content="width=device-width, initial-scale=1"> <!--for adding emojis-->
+<style>
+body {
+  background: #ffd1dc;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+</style>
+</head>
 <body style="background-color:rgb(172, 205, 207);">
+    <div class="content">
     <form action="{{ url_for ('createArtistTable') }}" method="POST">
-        <button name="createdb" type="submit">Create Database</button>
+        <button name="createdb" type="submit">Create Artist table in Database</button>
     </form>
     <form action="{{ url_for ('artist_create') }}" method="POST" enctype="multipart/form-data">
         <h3>Hey beautiful artist! </h3>
         <h4>Let's create a new profile for you! Enter your details below</h4>
-        Name <br><input type="text" name="name" /></br>
+        Username <br><input type="text" name="name" /></br>
 
         Password <br><input type="text" name="password" /></br>
     
@@ -15,8 +40,9 @@
         About <br><input type="text" name="about" /></br>
     
         Profile Picture<br><input type="file" name="File" /><br>
-    
+        <br>
         <input type="submit" value="submit" /><br>
     </form>
+    </div>
     </body>
 {% endblock %}
