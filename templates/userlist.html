@@ -1,9 +1,21 @@
 {% extends "base.html" %} {% block body %}
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='hover.css') }}">
+<style>
+table, td, th {
+  border: 1px solid black;
+}
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+</style>
+</head>
 <table border=1>
     <tr>
         <th> Username </th>
-        <th> user type </th>
+        <th> User Type </th>
         <!-- <th> Edit </th>
         <th> Delete </th> -->
 
