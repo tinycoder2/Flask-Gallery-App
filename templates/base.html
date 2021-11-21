@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Gallery App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='gallery.css') }}"> -->
+    <script type="text/javascript" src="{{ url_for('static',filename='gallery.js') }}"></script>
+
+</head>
+
+<body>
+    <header>
+        
+            <nav class="navbar navbar-expand-lg navbar-dark"style="background-color: #f2b1e2;">
+                <a class="navbar-brand" href="#">Gallery App</a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                  <div class="navbar-nav">
+                    {% if session.admin_logged_in %}
+                    <a class="nav-item nav-link" href="/">Home</a>
+                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Explore</a>
+                    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a> 
+                    
+                    {% elif session.artist_logged_in %}
+                    <a class="nav-item nav-link" href="{{ url_for('index_user', pk=pk) }}">Home</a> 
+                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Explore</a>
+                    <a class="nav-item nav-link" href="{{ url_for('profileview', id=pk) }}">My profile</a>
+                    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>    
+                    {% endif %}
+
+                    {% if not (session.admin_logged_in or session.artist_logged_in) %}
+                    <a class="nav-item nav-link" href="/">Home</a>
+                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Explore</a> 
+                    <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                    <a class="nav-item nav-link" href="{{ url_for('artist_create') }}">Signup</a> 
+                    {% endif %}
+
+                  </div>
+                </div>
+              </nav>
+            
+
+        
+    </header>
+
+    {% block body %} {% endblock %}
+</body>
+
+</html>

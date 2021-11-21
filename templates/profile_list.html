@@ -1,0 +1,29 @@
+
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    img {
+      border-radius: 50%;
+    }
+</style>
+<body style="background-color:rgb(196, 224, 226);">
+    <center><font face = "Brush Script" size = "7">Meet The Artists</font><br><br>
+    {% for item in profile %}
+    <br>
+    <div class="row">
+    <div class="column">
+        <div class="card">
+        <img src="{{item.6}}" alt="Profile picture" style="width:200px">
+        <div class="container">
+            <h2>{{item.1}}</h2>
+            <p class="title"><b>About Me: </b>{{item.4}}</p>
+            <p><b>Email: </b>{{item.3}}</p>
+            <a href="{{ url_for ('sendlove', id=item.0) }}">Send love</a>
+        </div>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+    </center>
+</body>
+</html>
