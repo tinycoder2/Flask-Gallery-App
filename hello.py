@@ -261,16 +261,16 @@ def profileupdate(id):
          cursor = connection.cursor()
             
          print ("Executing the DML")
-         cursor.execute("UPDATE artist SET name=?, password=?, email=?, about=?,date_modified=? WHERE id=?",(name,password,email,about,modifiedDate,id))  
+         cursor.execute("UPDATE artist SET name=?, password=?, email=?, about=?, date_modified=? WHERE id=?",(name,password,email,about,modifiedDate,id))  
             
-         print ("Commiting the changes")
+         print ("Committing the changes")
          connection.commit()
          pk=get_pk(name)
          return redirect(url_for('profileview',id=pk))
 
    else:
       
-      print ("making a connection")
+      print ("Making a connection")
       connection = sqlite3.connect('artgallery.db')
    
       print ("Getting a Cursor")
@@ -282,7 +282,7 @@ def profileupdate(id):
       print ("Get the Rows from cursor")
       show_data = cursor.fetchall()
       
-      print ("Closing the datbase")
+      print ("Closing the database")
       connection.close()
 
       return render_template("profile_update.html", show_data = show_data, pk=id)
@@ -302,10 +302,10 @@ def profiledelete(id):
       print ("Executing the DML")
       cursor.execute("DELETE from artist where id=(?)", (id,))
       
-      print ("Commiting the changes")
+      print ("Committing the changes")
       connection.commit()
 
-      print ("Closing the datbase")
+      print ("Closing the database")
       connection.close()
 
       session.pop('artist_logged_in', None)
@@ -385,7 +385,7 @@ def createArtworkTable():
    print ("Executing the DML")
    cursor.execute('''CREATE TABLE IF NOT EXISTS Art 
                   (pk INTEGER PRIMARY KEY, Title TEXT, 
-                  Artist TEXT, Genre TEXT, Year INT, Photo TEXT, Appr INTEGER)''')
+                  Artist TEXT FOREIGN KEY REFERENCES artist(name), Genre TEXT, Year INT, Photo TEXT, Appr INTEGER)''')
 
    print("Committing the changes")
    connection.commit()
@@ -401,7 +401,7 @@ def artworkcreate():
       title = request.form['title']
       artist = request.form['artist']
       # genre = request.form['genre']
-      genre="arty"
+      genre = "arty"
       year = request.form['year']
       image = request.files['file']  
       appr = 0
