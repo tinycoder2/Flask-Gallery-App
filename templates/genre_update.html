@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  background: #ffd1dc;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+</style>
+</head>
+
+<body style="background-color:rgb(255, 209, 220);">
+<div class="content">
+<form action="#" method="POST" enctype="multipart/form-data">
+    <h3>Update Genre Details:</h3>
+    Name: <br>
+    <input type="text" name="name" value="{{show_data.0.1}}" /></br>
+    <br>
+    About: <br>
+    <input type="text" name="about" value="{{show_data.0.2}}" /></br>
+
+    <!-- Auto updated: Date_modified-->
+    <br><br>
+    <input type="submit" value="Submit" /><br>
+</form>
+</div>
+</body>
+</html>

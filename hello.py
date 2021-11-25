@@ -400,8 +400,7 @@ def artworkcreate():
    if request.method == 'POST':
       title = request.form['title']
       artist = request.form['artist']
-      # genre = request.form['genre']
-      genre="arty"
+      genre = request.form['genre']
       year = request.form['year']
       image = request.files['file']  
       appr = 0
@@ -440,7 +439,8 @@ def artworkcreate():
          return(return_message)
 
    else:
-      return render_template("artwork_create.html")
+      genrenameslist=genrenames()
+      return render_template("artwork_create.html", genrenameslist=genrenameslist)
 
 @app.route('/artlist', methods=['GET']) 
 def artlist():
@@ -462,6 +462,150 @@ def artlist():
    print(rows)
    return render_template("art_list.html", art = rows)
 
+@app.route("/artworkupdate/<int:pk>", methods=['GET','POST'])
+def artworkupdate(pk):
+   
+   if request.method == 'POST':
+      title = request.form['title']
+      artist = request.form['artist']
+      genre = request.form['genre']
+      year = request.form['year']
+      image = request.files['file']
+
+      if(len(image.filename)!=0): #if no image is selected (in case of updating artwork details)
+         old_image = request.form['image_file']
+         current_dir = os.getcwd()
+
+         old_image_url = current_dir + old_image
+         print(old_image_url)
+         
+         try:
+            # file url is used for storing images at an absolute location on the os file folder.
+            file_url = os.path.join(os.getcwd()+ UPLOAD_FOLDER, image.filename)
+
+            # static url is required for serving images from a static folder. store this on SQL DB
+            static_url = os.path.join(UPLOAD_FOLDER, image.filename)
+
+            image.save(file_url)
+
+            # Let's delete old image
+            os.remove(old_image_url)
+
+            print ("Making a connection", pk)
+            connection = sqlite3.connect('artgallery.db')
+         
+            print ("Getting a Cursor")
+            cursor = connection.cursor()
+            
+            print ("Executing the DML")
+            cursor.execute("UPDATE Art SET Title=?, Artist=?, Genre=?, Year=?, Photo=? WHERE pk=?",(title,artist,genre,year,static_url,pk))  
+            
+            print ("Committing the changes")
+            connection.commit()
+            return redirect(url_for('artlist'))
+   
+         except Exception as error:
+            return_message = str(error)
+            return(return_message)
+   
+      else:
+         
+         print ("Making a connection",pk)
+         connection = sqlite3.connect('artgallery.db')
+      
+         print ("Getting a Cursor")
+         cursor = connection.cursor()
+         
+         print ("Executing the DML")
+         cursor.execute("UPDATE Art SET Title=?, Artist=?, Genre=?, Year=? WHERE pk=?",(title,artist,genre,year,pk))
+        
+         print ("Committing the changes")
+         connection.commit()
+         
+         return redirect(url_for('artlist'))
+         
+   else: #executes first and shows existing data in the form fields
+         
+      print ("Making a connection")
+      connection = sqlite3.connect('artgallery.db')
+   
+      print ("Getting a Cursor")
+      cursor = connection.cursor()
+      
+      print ("Executing the DML")
+      cursor.execute("select * from Art where pk=(?)",(pk,))
+      
+      print ("Get the Rows from cursor")
+      art_data = cursor.fetchall()
+      genrenameslist = genrenames()
+      
+      print(art_data, genrenameslist)
+
+      print ("Closing the database")
+      connection.close()
+      
+      return render_template("artwork_update.html", art_data=art_data, genrenameslist=genrenameslist)
+
+@app.route("/artworkdelete/<int:pk>", methods=['GET','POST'])
+def artworkdelete(pk):
+      
+   try:
+
+      print ("Making a connection")
+      connection = sqlite3.connect('artgallery.db')
+
+      print ("Getting a Cursor")
+      cursor = connection.cursor()
+      
+      print ("Executing the DML")
+      cursor.execute("DELETE from Art where pk=(?)", (pk,))
+      
+      print ("Committing the changes")
+      connection.commit()
+
+      print ("Closing the database")
+      connection.close()
+      
+      return redirect(url_for('artlist'))
+   
+   
+   except Exception as error:
+      return_message = str(error)
+      return(return_message)
+
+@app.route("/like/<int:pk>",methods=['GET','POST'])
+def like(pk):
+   print ("Making a connection")
+   connection = sqlite3.connect('artgallery.db')
+
+   print ("Getting a Cursor")
+   cursor = connection.cursor()
+      
+   print ("Executing the DML")
+   cursor.execute("UPDATE Art SET Appr=Appr+1 WHERE pk=(?)",(pk,))
+
+   print ("Committing the changes")
+   connection.commit()
+
+   print ("Closing the database")
+   connection.close()
+
+   print ("Making a connection")
+   connection = sqlite3.connect('artgallery.db')
+
+   print ("Getting a Cursor")
+   cursor = connection.cursor()
+
+   print ("Executing the DML")
+   cursor.execute("SELECT * from Art where pk=(?)",(pk,))
+
+   print ("Get the Rows from cursor")
+   data = cursor.fetchall() 
+
+   print ("Closing the database")
+   connection.close()
+
+   return render_template("like.html", item = data)
 
 
 @app.route('/createGenreTable',methods=['POST'])
@@ -484,6 +628,160 @@ def createGenreTable():
    connection.close()
    
    return('Genre Table created successfully')
+
+@app.route('/creategenre', methods = ['GET','POST'])
+def creategenre():
+   
+   if request.method == 'POST':
+      name = request.form['name']
+      about = request.form['about']
+      datemodified = date.today()
+
+      try:
+         print ("making a connection")
+         connection = sqlite3.connect('artgallery.db')
+
+         print ("Getting a Cursor")
+         cursor = connection.cursor()
+         
+         print ("Executing the DML")
+         # Entry of data into genre table
+         cursor.execute("INSERT into Genre (Name, About, Date_modified) values (?,?,?)",
+                        (name,about,datemodified))  
+      
+         print ("Commiting the changes")
+         connection.commit()
+
+         print ("Closing the database")
+         connection.close()
+
+         return redirect(url_for('genrelist'))
+   
+      except Exception as error:
+         return_message = str(error)
+         return(return_message)
+
+   else:
+      return render_template("create_genre.html")
+
+@app.route('/genrelist', methods=['GET']) 
+def genrelist():
+   print("Making a connection")
+   connection = sqlite3.connect('artgallery.db')
+
+   print ("Getting a cursor")
+   cursor = connection.cursor()
+   
+   print ("Executing the DML")
+   cursor.execute("select * from Genre") #accessing all genre data (name,about,date modified)
+
+   print("Get the Rows from cursor")
+   g_rows = cursor.fetchall()
+   
+   print("Closing the database")
+   connection.close()
+
+   print(g_rows)
+   return render_template("genre_list.html", g_rows = g_rows)
+
+def genrenames():
+   print("Making a connection")
+   connection = sqlite3.connect('artgallery.db')
+
+   print ("Getting a cursor")
+   cursor = connection.cursor()
+   
+   print ("Executing the DML")
+   cursor.execute("select Name from Genre order by Name") #accessing genre names
+
+   # EITHER THIS
+   # gname = []
+   # print("Get the Rows from cursor")
+   # for i in cursor.fetchall():
+   #       for j in i:
+   #              gname.append(j)
+
+   # OR THAT
+   gname = cursor.fetchall()
+   
+   print("Closing the database")
+   connection.close()
+
+   print(gname)
+   return(gname)
+
+@app.route("/genreupdate/<int:id>", methods=['GET','POST'])
+def genreupdate(id):
+   
+   if request.method == 'POST':
+      name = request.form['name']
+      about = request.form['about']
+      datemodified = date.today()
+         
+      try:
+         print ("Making a connection", id)
+         connection = sqlite3.connect('artgallery.db')
+      
+         print ("Getting a Cursor")
+         cursor = connection.cursor()
+         
+         print ("Executing the DML")
+         cursor.execute("UPDATE Genre SET Name=?, About=?, Date_modified=? WHERE id=?",(name,about,datemodified,id))  
+         
+         print ("Committing the changes")
+         connection.commit()
+         return redirect(url_for('genrelist'))
+
+      except Exception as error:
+         return_message = str(error)
+         return(return_message)
+ 
+   else:
+         
+      print ("Making a connection")
+      connection = sqlite3.connect('artgallery.db')
+   
+      print ("Getting a Cursor")
+      cursor = connection.cursor()
+      
+      print ("Executing the DML")
+      cursor.execute("select * from Genre where id=(?)",(id,))
+
+      print ("Get the Rows from cursor")
+      show_data = cursor.fetchall()
+      
+      print ("Closing the database")
+      connection.close()
+
+      return render_template("genre_update.html", show_data = show_data)
+
+@app.route("/genredelete/<int:id>", methods=['GET','POST'])
+def genredelete(id):
+      
+   try:
+
+      print ("Making a connection")
+      connection = sqlite3.connect('artgallery.db')
+
+      print ("Getting a Cursor")
+      cursor = connection.cursor()
+      
+      print ("Executing the DML")
+      cursor.execute("DELETE from Genre where id=(?)", (id,))
+      
+      print ("Committing the changes")
+      connection.commit()
+
+      print ("Closing the database")
+      connection.close()
+      
+      return redirect(url_for('genrelist'))
+   
+   
+   except Exception as error:
+      return_message = str(error)
+      return(return_message)
+
 
 if __name__ == '__main__':
    app.run()

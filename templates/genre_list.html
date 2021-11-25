@@ -1,0 +1,47 @@
+<html>
+<head>
+<h1>Welcome to the Genres page</h1>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='hover.css') }}">
+<style>
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+</style>
+</head>
+
+<body style="background-color:#B19CD9;">
+
+<a href="{{ url_for ('creategenre') }}">Add a new genre</a>
+<div class="svg-wrapper">
+  <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+    <rect class="shape" height="60" width="320" />
+  </svg>
+   <div class="text">Various Genres</div>
+</div>
+</br></br>
+<table border=5>
+    <tr>
+        <th> Name </th>
+        <th> About </th>
+        <th> Date modified </th>
+        <th> Edit </th>
+        <th> Delete </th>
+    </tr>
+
+    {% for item in g_rows %}
+    <tr>
+        <td> {{item.1}} </td>
+        <td> {{item.2}} </td>
+        <td> {{item.3}} </td>
+        <td> <a href="{{ url_for ('genreupdate', id = item.0) }}">Update About section</a> </td>
+        <td> <a href="{{ url_for ('genredelete', id = item.0) }}">Delete genre</a> </td>
+    </tr>
+    {% endfor %}
+
+</body>
+</html>    

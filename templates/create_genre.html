@@ -1,0 +1,50 @@
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  background: #ffd1dc;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+</style>
+</head>
+
+<body style="background-color:rgb(172, 205, 207);">
+<!-- {{genre}}  shows the genre viz a tuple inside list -->
+<div class="content">
+<!-- Creation of Genre table in database -->
+<form action="{{ url_for ('createGenreTable') }}" method="POST">
+    <button name="createdb" type="submit" class="button1" href="{{ url_for('static',filename='button.css') }}">Create Genre Table</button>
+</form>
+
+<form action="{{ url_for ('creategenre') }}" method="POST" enctype="multipart/form-data">
+    <h3>Enter Genre Details: </h3>
+    Name of the Genre:
+    <input type="text" name="name"/></br>
+    <br>
+    About:
+    <input type="text" name="about"/></br>
+
+    <!-- (AUTO GENERATED) Date modified:-->
+    <br>
+    <input type="submit" value="Submit" /><br>
+</form>
+</div>
+</body>
+</html>

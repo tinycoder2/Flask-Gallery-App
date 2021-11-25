@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  background: #ffd1dc;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+</style>
+</head>
+
+<body style="background-color:rgb(255, 209, 220);">
+<!-- {{art_data}}  shows the object viz a tuple inside list -->
+<div class="content">
+<form action="#" method="POST" enctype="multipart/form-data">
+    <h3>Update artwork details: </h3>
+    Title:<br>
+    <input type="text" name="title" value="{{art_data.0.1}}" /></br>
+    <br>
+    Artist:<br>
+    <input type="text" name="artist" value="{{art_data.0.2}}" /></br>
+    <br>
+
+
+    <label for="genre">Choose a genre for your artwork:</label>
+    <select name="genre">
+      {% for g in genrenameslist %}
+      <option value="{{g.0}}">{{g.0}}</option>
+      {% endfor %}
+    </select>
+    
+    <br><br>
+    Year:
+    <input type="text" name="year" value="{{art_data.0.4}}" /></br>
+    <br><br>
+    Current image: 
+    <input type="hidden" name="image_file" value="{{art_data.0.5}}">
+    <img src="{{art_data.0.5}}" name="image" alt="image" width="320" height="240">
+
+    <br><br>
+    Update image: 
+    <input type="file" name="file" /><br>
+    <br>
+    <input type="submit" value="Submit" /><br>
+</form>
+</div>
+</body>
+</html>

@@ -37,7 +37,12 @@ input[type=text] {
     Artist &#129489;&#8205;&#127912; <br><input type="text" name="artist" /></br>
     <br>
 
-
+    <label for="genre">Choose a genre for your artwork:</label>
+    <select name="genre">
+      {% for g in genrenameslist %}
+      <option value="{{g.0}}">{{g.0}}</option>
+      {% endfor %}
+    </select>
     
     <br><br>
     Year &#128197; <br><input type="text" name="year" /></br></br>
