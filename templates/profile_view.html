@@ -1,25 +1,29 @@
 {% extends "base.html" %} {% block body %}
 
+<style>
+  img {
+    border-radius: 50%;
+  }
+</style>
+<center><font face = "Brush Script" size = "7">My Profile</font><br>
+  <img src="{{user.0.6}}" alt="Profile picture" style="width:200px"><br>
+<!--{{user}}-->
 
-<h1>profile</h1>
-{{user}}
-
+<h3>{{user.0.1}}</h3>
+<font size=3>
+  <h6>{{user.0.4}}<br><br></h6>
+  <p>Email: {{user.0.3}} <br>
+     Love received: {{user.0.7}} <br>
+     Created on: {{user.0.5}} <br>
+     Modified on: {{user.0.8}} <br><br>
+     Password:<input type="password" value="{{user.0.2}}" id="myInput" disabled><input type="checkbox" onclick="showPwd()"> <font size=2>show password</font> 
+  </p>
+</font>
+<br> 
 <a href="{{ url_for ('profileupdate', id=user.0.0) }}" class="btn btn-outline-primary" role="button">Update profile</a>
 <a href="#" class="btn btn-outline-danger" role="button" onclick="confirmDel()">Delete account</a>
+</center>
 
-<table border=1>
-    <tr>
-        <th> Username </th>
-        <td> {{user.0.1}} </td>
-    </tr>
-    <tr>
-        <th> User type </th>
-        <td> {{user.0.3}} </td>
-    </tr><tr>
-        <th> Password:  </th>
-        <td><input type="password" value="{{user.0.2}}" id="myInput" disabled><input type="checkbox" onclick="showPwd()">Show Password </td>
-    </tr>
-</table>
 
 <script>
 function showPwd() {
