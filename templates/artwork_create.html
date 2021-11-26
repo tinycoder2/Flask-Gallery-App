@@ -1,3 +1,4 @@
+{% extends "base.html" %} {% block body %}
 <html>
 <head>
 <meta charset="UTF-8"  name="viewport" content="width=device-width, initial-scale=1"> <!--for adding emojis-->
@@ -26,15 +27,14 @@ input[type=text] {
 
 <body style="background-color:rgb(172, 205, 207);">
 <div class="content">
-<form action="{{ url_for ('createArtworkTable') }}" method="POST">
+<!-- <form action="{{ url_for ('createArtworkTable') }}" method="POST">
     <button name="createdb" type="submit" class="button1" href="{{ url_for('static',filename='button.css') }}">Create Art table in Database</button>
-</form>
+</form> -->
 
-<form action="{{ url_for ('artworkcreate') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url_for ('artworkcreate', id=pk) }}" method="POST" enctype="multipart/form-data">
     <h3>Enter your Artwork's Details: </h3>
     Title &#127991;&#65039; <br><input type="text" name="title" /></br>
 
-    Artist &#129489;&#8205;&#127912; <br><input type="text" name="artist" /></br>
     <br>
 
     <label for="genre">Choose a genre for your artwork:</label>
@@ -56,3 +56,4 @@ input[type=text] {
 </div>
 </body>
 </html>
+{% endblock %}

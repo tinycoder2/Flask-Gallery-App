@@ -22,25 +22,31 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
                   <div class="navbar-nav">
                     {% if session.admin_logged_in %}
                     <a class="nav-item nav-link" href="/">Home</a>
-                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Explore</a>
+                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Artists</a>
+                    <a class="nav-item nav-link" href="{{ url_for('artlist') }}">Artworks</a>
+                    <a class="nav-item nav-link" href="{{ url_for('genrelist') }}">Genres</a>
                     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a> 
                     
                     {% elif session.artist_logged_in %}
                     <a class="nav-item nav-link" href="{{ url_for('index_user', pk=pk) }}">Home</a> 
-                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Explore</a>
+                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Artists</a>
+                    <a class="nav-item nav-link" href="{{ url_for('artlist') }}">Artworks</a>
                     <a class="nav-item nav-link" href="{{ url_for('profileview', id=pk) }}">My profile</a>
+                    <a class="nav-item nav-link" href="{{ url_for('artview', id=pk) }}">My work</a>
                     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>    
                     {% endif %}
 
                     {% if not (session.admin_logged_in or session.artist_logged_in) %}
                     <a class="nav-item nav-link" href="/">Home</a>
-                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Explore</a> 
+                    <a class="nav-item nav-link" href="{{ url_for('profilelist') }}">Artists</a>
+                    <a class="nav-item nav-link" href="{{ url_for('artlist') }}">Artworks</a>
                     <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
                     <a class="nav-item nav-link" href="{{ url_for('artist_create') }}">Signup</a> 
+                    
                     {% endif %}
 
                   </div>
@@ -51,7 +57,8 @@
         
     </header>
 
-    {% block body %} {% endblock %}
+    
 </body>
 
 </html>
+{% block body %} {% endblock %}

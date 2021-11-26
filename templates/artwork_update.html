@@ -1,3 +1,4 @@
+{% extends "base.html" %} {% block body %}
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,10 +33,8 @@ input[type=text] {
     Title:<br>
     <input type="text" name="title" value="{{art_data.0.1}}" /></br>
     <br>
-    Artist:<br>
-    <input type="text" name="artist" value="{{art_data.0.2}}" /></br>
-    <br>
 
+    <input type="hidden" name="artist" value="{{art_data.0.2}}">
 
     <label for="genre">Choose a genre for your artwork:</label>
     <select name="genre">
@@ -61,3 +60,4 @@ input[type=text] {
 </div>
 </body>
 </html>
+{% endblock %}

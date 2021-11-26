@@ -205,8 +205,6 @@ def profilelist():
    return render_template("profile_list.html", profile = all_profiles)
 
 
-
-
 @app.route("/profileupdate/<int:id>", methods=['GET','POST'])
 def profileupdate(id):
    modifiedDate = date.today()
@@ -290,7 +288,7 @@ def profileupdate(id):
 
 @app.route("/profiledelete/<int:id>", methods=['GET','POST'])
 def profiledelete(id):
-      
+   artist=get_name(id)
    try:
 
       print ("making a connection")
@@ -302,6 +300,12 @@ def profiledelete(id):
       print ("Executing the DML")
       cursor.execute("DELETE from artist where id=(?)", (id,))
       
+      print ("Getting a Cursor")
+      cursor1 = connection.cursor()
+      
+      print ("Executing the DML")
+      cursor1.execute("DELETE from Art where Artist=(?)", (artist,))
+
       print ("Commiting the changes")
       connection.commit()
 
@@ -374,6 +378,53 @@ def profileview(id):
    return render_template("profile_view.html", user = all_rows, pk=id)
 
 ###########################ARTWORK###########################
+
+def get_name(id):
+   try:
+      print ("making a connection")
+      connection = sqlite3.connect('artgallery.db')
+
+      print ("Getting a Cursor")
+      cursor = connection.cursor()
+      
+      print ("Executing the DML")
+      cursor.execute("select name from artist where id=(?)", (id,))
+
+      print ("Get the Rows from cursor")
+      name = cursor.fetchall() 
+      print(name[0][0])
+      name=name[0][0]
+
+      print ("Closing the datbase")
+      connection.close()
+
+      return name
+   except Exception as error:
+      return_message = str(error)
+      return(return_message)
+
+@app.route("/artview/<int:id>", methods=['GET'])
+def artview(id):
+   name=get_name(id)
+   print ("making a connection for userprof")
+   connection = sqlite3.connect('artgallery.db')
+
+   print ("Getting a Cursor")
+   cursor = connection.cursor()
+   
+   print ("Executing the DML")
+   cursor.execute("select * from Art where Artist=(?)", (name,))
+
+   print ("Get the Rows from cursor")
+   art = cursor.fetchall() 
+
+   print(art)
+   print ("Closing the datbase")
+   connection.close()
+
+   return render_template("art_view.html", art = art, pk=id)
+
+
 @app.route('/createArtworkTable',methods=['POST'])
 def createArtworkTable():
    print("Making a connection")
@@ -395,11 +446,11 @@ def createArtworkTable():
    
    return('Art table created successfully')
 
-@app.route('/artworkcreate', methods = ['GET','POST'])
-def artworkcreate():
+@app.route('/artworkcreate/<int:id>', methods = ['GET','POST'])
+def artworkcreate(id):
    if request.method == 'POST':
       title = request.form['title']
-      artist = request.form['artist']
+      artist = get_name(id)
       genre = request.form['genre']
       year = request.form['year']
       image = request.files['file']  
@@ -432,7 +483,7 @@ def artworkcreate():
          print ("Closing the database")
          connection.close()
 
-         return redirect(url_for('artlist'))
+         return redirect(url_for('artview',id=id))
    
       except Exception as error:
          return_message = str(error)
@@ -440,7 +491,7 @@ def artworkcreate():
 
    else:
       genrenameslist=genrenames()
-      return render_template("artwork_create.html", genrenameslist=genrenameslist)
+      return render_template("artwork_create.html", genrenameslist=genrenameslist, pk=id)
 
 @app.route('/artlist', methods=['GET']) 
 def artlist():
@@ -498,11 +549,12 @@ def artworkupdate(pk):
             cursor = connection.cursor()
             
             print ("Executing the DML")
-            cursor.execute("UPDATE Art SET Title=?, Artist=?, Genre=?, Year=?, Photo=? WHERE pk=?",(title,artist,genre,year,static_url,pk))  
+            cursor.execute("UPDATE Art SET Title=?, Genre=?, Year=?, Photo=? WHERE pk=?",(title,genre,year,static_url,pk))  
             
             print ("Committing the changes")
             connection.commit()
-            return redirect(url_for('artlist'))
+            pk=get_pk(artist)
+            return redirect(url_for('artview', id=pk))
    
          except Exception as error:
             return_message = str(error)
@@ -517,12 +569,13 @@ def artworkupdate(pk):
          cursor = connection.cursor()
          
          print ("Executing the DML")
-         cursor.execute("UPDATE Art SET Title=?, Artist=?, Genre=?, Year=? WHERE pk=?",(title,artist,genre,year,pk))
+         cursor.execute("UPDATE Art SET Title=?, Genre=?, Year=? WHERE pk=?",(title,genre,year,pk))
         
          print ("Committing the changes")
          connection.commit()
          
-         return redirect(url_for('artlist'))
+         pk=get_pk(artist)
+         return redirect(url_for('artview', id=pk))
          
    else: #executes first and shows existing data in the form fields
          
@@ -544,7 +597,7 @@ def artworkupdate(pk):
       print ("Closing the database")
       connection.close()
       
-      return render_template("artwork_update.html", art_data=art_data, genrenameslist=genrenameslist)
+      return render_template("artwork_update.html", art_data=art_data, genrenameslist=genrenameslist, pk=pk)
 
 @app.route("/artworkdelete/<int:pk>", methods=['GET','POST'])
 def artworkdelete(pk):
@@ -553,12 +606,18 @@ def artworkdelete(pk):
 
       print ("Making a connection")
       connection = sqlite3.connect('artgallery.db')
-
+      
+      cursor2 = connection.cursor()
+      cursor2.execute("select Artist from Art where pk=(?)",(pk,))
+      name = cursor2.fetchall()
+      
       print ("Getting a Cursor")
-      cursor = connection.cursor()
+      cursor1 = connection.cursor()
+
+      
       
       print ("Executing the DML")
-      cursor.execute("DELETE from Art where pk=(?)", (pk,))
+      cursor1.execute("DELETE from Art where pk=(?)", (pk,))
       
       print ("Committing the changes")
       connection.commit()
@@ -566,7 +625,9 @@ def artworkdelete(pk):
       print ("Closing the database")
       connection.close()
       
-      return redirect(url_for('artlist'))
+      pk=get_pk(name[0][0])
+      
+      return redirect(url_for('artview', id=pk))
    
    
    except Exception as error:
@@ -606,6 +667,8 @@ def like(pk):
    connection.close()
 
    return render_template("like.html", item = data)
+
+
 
 
 @app.route('/createGenreTable',methods=['POST'])

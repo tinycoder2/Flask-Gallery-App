@@ -17,7 +17,6 @@ table {
 <body style="background-color:#B19CD9;">
 <p>Hope you find something you love ^^</p>
 
-<a href="{{ url_for ('artworkcreate') }}">Add your Artwork</a>
 <!-- <div class="svg-wrapper">
   <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
     <rect class="shape" height="60" width="320" />
@@ -33,8 +32,6 @@ table {
         <th> Genre </th>
         <th> Year </th>
         <th> Image </th>
-        <th> Edit </th>
-        <th> Delete </th>
         <th> Like </th>
 
     </tr>
@@ -46,8 +43,6 @@ table {
         <td> {{item.3}} </td>
         <td> {{item.4}} </td>
         <td> <img src="{{item.5}}" alt="image" width="320" height="240"> </td>
-        <td> <a href="{{ url_for ('artworkupdate', pk=item.0) }}">Update</a> </td>
-        <td> <a href="{{ url_for ('artworkdelete', pk=item.0) }}">Delete</a> </td>
         <td> <a href="{{ url_for ('like', pk=item.0) }}">Like</a> </td>
     </tr>
     {% endfor %}

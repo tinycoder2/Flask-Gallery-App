@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block body %}
+<a href="{{ url_for ('artworkcreate', id=pk) }}" class="btn btn-outline-primary" role="button">Add Artwork</a>
+
+
+
+<table border=5>
+    <tr>
+        <th> Title </th>
+        <th> Genre </th>
+        <th> Year </th>
+        <th> Image </th>
+        <th> Update </th>
+        <th> Delete </th>
+
+    </tr>
+
+    {% for item in art %}
+    <tr>
+        <td> {{item.1}} </td>
+        <td> {{item.3}} </td>
+        <td> {{item.4}} </td>
+        <td> <img src="{{item.5}}" alt="image" width="320" height="240"> </td>
+        <td> <a href="{{ url_for ('artworkupdate', pk=item.0) }}">Update</a> </td>
+        <td> <a href="{{ url_for ('artworkdelete', pk=item.0) }}">Delete</a> </td>
+    </tr>
+    {% endfor %}
+
+
+{% endblock %}

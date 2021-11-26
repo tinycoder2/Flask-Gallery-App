@@ -1,14 +1,14 @@
 {% extends "base.html" %} {% block body %}
 <body style="background-color:rgb(172, 205, 207);">
-    <form action="{{ url_for ('createArtistTable') }}" method="POST">
+    <!-- <form action="{{ url_for ('createArtistTable') }}" method="POST">
         <button name="createdb" type="submit">Create Database</button>
-    </form>
+    </form> -->
     <form action="{{ url_for ('artist_create') }}" method="POST" enctype="multipart/form-data">
         <h3>Hey beautiful artist! </h3>
         <h4>Let's create a new profile for you! Enter your details below</h4>
         Name <br><input type="text" name="name" /></br>
 
-        Password <br><input type="text" name="password" /></br>
+        Password <br><input type="password" name="password" /></br>
     
         Email <br><input type="text" name="email" /></br>
     

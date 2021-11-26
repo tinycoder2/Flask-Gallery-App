@@ -29,9 +29,9 @@ input[type=text] {
 <!-- {{genre}}  shows the genre viz a tuple inside list -->
 <div class="content">
 <!-- Creation of Genre table in database -->
-<form action="{{ url_for ('createGenreTable') }}" method="POST">
+<!-- <form action="{{ url_for ('createGenreTable') }}" method="POST">
     <button name="createdb" type="submit" class="button1" href="{{ url_for('static',filename='button.css') }}">Create Genre Table</button>
-</form>
+</form> -->
 
 <form action="{{ url_for ('creategenre') }}" method="POST" enctype="multipart/form-data">
     <h3>Enter Genre Details: </h3>
