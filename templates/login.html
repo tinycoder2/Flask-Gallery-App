@@ -1,8 +1,42 @@
 {% extends "base.html" %} {% block body %}
-
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <h2>Login</h2>
+<style>
+body {
+  background: #ffd1dc;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+</style>
+
+</head>
+
 {% if error %}
 <p class=error><strong>Error:</strong> {{ error }}{% endif %}
+    <div class="content">
     <form action="{{ url_for('login') }}" method=post>
         <dl>
             <dt>Username:
@@ -12,5 +46,6 @@
     <dd><input type=submit value=Login>
   </dl>
 </form>
+</div>
 
 {% endblock %}
