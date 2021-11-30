@@ -32,8 +32,8 @@ table {
         <th> Genre </th>
         <th> Year </th>
         <th> Image </th>
+        <th> No. of likes </th>
         <th> Like </th>
-
     </tr>
 
     {% for item in art %}
@@ -43,6 +43,7 @@ table {
         <td> {{item.3}} </td>
         <td> {{item.4}} </td>
         <td> <img src="{{item.5}}" alt="image" width="320" height="240"> </td>
+        <td> {{item.6}} </td>
         <td> <a href="{{ url_for ('like', pk=item.0) }}">Like</a> </td>
     </tr>
     {% endfor %}
