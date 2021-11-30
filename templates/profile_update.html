@@ -1,27 +1,57 @@
 {% extends "base.html" %} {% block body %}
-<body style="background-color:rgb(172, 205, 207);">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  background: #ffd1dc;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+</style>
+</head>
+
+
+<body style="background-color:rgb(255, 209, 220);">
+    <div class="content">
     <form action="#" method="POST" enctype="multipart/form-data">
         <h3>Profile Details</h3>
-        Name<br>
+        Username:<br>
         <input type="text" name="name" value="{{show_data.0.1}}" /></br>
-        
-        Password <br>
+        <br>
+        Password: <br>
         <input type="text" name="password" value="{{show_data.0.2}}" /></br>
-
-        Email<br>
+        <br>
+        Email:<br>
         <input type="text" name="email" value="{{show_data.0.3}}" /></br>
-    
-        About<br>
+        <br>
+        About:<br>
         <input type="text" name="about" value="{{show_data.0.4}}" /></br>
-    
-        Current image
+        <br>
+        Current Profile Picture:<br>
         <input type="hidden" name="image_file" value="{{show_data.0.6}}">
+        <br>
         <img src="{{show_data.0.6}}" name="image" alt="cover image" width="320" height="240">
     
+        <br><br>
+        Update Profile Picture:<input type="file" name="file" /><br>
         <br>
-        <input type="file" name="file" /><br>
-    
         <input type="submit" value="submit" /><br>
     </form>
+    </div>
     </body>
 {% endblock %}
