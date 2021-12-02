@@ -1,28 +1,54 @@
-
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
 <style>
     img {
       border-radius: 50%;
     }
+    .bg-text {
+        color: rgb(31, 46, 97);
+        font-weight: bold; 
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 60%;
+        padding: 20px;
+        text-align: center;
+        font-family: 'Aclonica';
+        font-size: 22px;
+        }
+    .bg{
+        background-color: #f1bbc4;
+        background-color: #ffe1e6e7; 
+        margin-bottom: 10px;
+        width: 30%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 </style>
-<body style="background-color:rgb(196, 224, 226);">
-    <center><font face = "Brush Script" size = "7">Meet The Artists</font><br><br>
+<body style="background-color:#b6d7e7;">
+    <center>
+    <div class='bg-text'><h1>Meet The Artists</h1></div>
+</br></br></br></br></br></br></br></br></br></br>
     {% for item in profile %}
     <br>
+    <div class='bg'>
     <div class="row">
     <div class="column">
         <div class="card">
+            <br>
         <img src="{{item.6}}" alt="Profile picture" style="width:200px">
         <div class="container">
             <h2>{{item.1}}</h2>
             <p class="title"><b>About Me: </b>{{item.4}}</p>
             <p><b>Email: </b>{{item.3}}</p>
-            <a href="{{ url_for ('sendlove', id=item.0) }}">Send love</a>
+            <a href="{{ url_for ('sendlove', id=item.0) }}">Send love</a><br><br>
         </div>
         </div>
     </div>
     </div>
+</div>
     {% endfor %}
     </center>
 </body>
