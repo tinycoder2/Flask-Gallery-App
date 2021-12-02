@@ -10,7 +10,8 @@ body {
 .content {
   max-width: 500px;
   margin: auto;
-  background: white;
+  background-color: #f1bbc4;
+  background-color: #ffe1e6e7; 
   padding: 10px;
 }
 
@@ -22,35 +23,31 @@ input[type=text] {
   border: 2px solid black;
   border-radius: 4px;
 }
+
 </style>
 </head>
 
-<body style="background-color:rgb(172, 205, 207);">
+<body style="background-color:#b6d7e7;"></br></br></br>
 <div class="content">
-<!-- <form action="{{ url_for ('createArtworkTable') }}" method="POST">
-    <button name="createdb" type="submit" class="button1" href="{{ url_for('static',filename='button.css') }}">Create Art table in Database</button>
-</form> -->
 
 <form action="{{ url_for ('artworkcreate', id=pk) }}" method="POST" enctype="multipart/form-data">
-    <h3>Enter your Artwork's Details: </h3>
-    Title &#127991;&#65039; <br><input type="text" name="title" /></br>
+  <center><h3>Enter your Artwork's Details: </h3></center></br>
+    Title: <br><input type="text" name="title" /></br></br>
 
-    <br>
-
-    <label for="genre">Choose a genre for your artwork:</label>
+    <label for="genre">Choose a genre for your artwork: </label>
     <select name="genre">
       {% for g in genrenameslist %}
       <option value="{{g.0}}">{{g.0}}</option>
       {% endfor %}
     </select>
+    <br>
+    <br>
+    Year: <br><input type="text" name="year" /></br>
+    <br>
+    Upload your creation: <input type="file" name="file" /><br>
+    </br> <br>
     
-    <br><br>
-    Year &#128197; <br><input type="text" name="year" /></br></br>
-  
-    Upload your creation: &#10024;<input type="file" name="file" /><br>
-    </br> </br>
-    
-    <input type="submit" value="Submit" /><br>
+    <center><input type="submit" value="Submit" /></center><br>
     
 </form>
 </div>
