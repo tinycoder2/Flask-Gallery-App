@@ -1,24 +1,39 @@
 {% extends "base.html" %} {% block body %}
-
+<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+<!-- #C5E3F2 -->
 <style>
   img {
     border-radius: 50%;
   }
+
+  .content {
+    max-width: 500px;
+    margin: auto;
+    background-color: #f1bbc4;
+    background-color: #ffe1e6e7; 
+    padding: 10px;
+    margin-top:10%;
+    text-align:center;
+  }
+  
 </style>
-<center><font face = "Brush Script" size = "7">My Profile</font><br>
-  <img src="{{user.0.6}}" alt="Profile picture" style="width:200px"><br>
-<!--{{user}}-->
+<body style="background-color:#C5E3F2;">
+
+<center>
+  <div class='content'><br><h3>My Profile</h3><br>
+  <img src="{{user.0.6}}" alt="Profile picture" style="width:200px"><br><br>
 
 <h3>{{user.0.1}}</h3>
 <font size=3>
   <h6>{{user.0.4}}<br><br></h6>
-  <p>Email: {{user.0.3}} <br>
-     Love received: {{user.0.7}} <br>
-     Created on: {{user.0.5}} <br>
-     Modified on: {{user.0.8}} <br><br>
-     Password:<input type="password" value="{{user.0.2}}" id="myInput" disabled><input type="checkbox" onclick="showPwd()"> <font size=2>show password</font> 
+  <p><b>Email: </b>{{user.0.3}} <br>
+    <b>Love received: </b>{{user.0.7}} <br>
+      <b>Created on: </b>{{user.0.5}} <br>
+        <b>Modified on: </b>{{user.0.8}} <br><br>
+          <b>Password:</b><input type="password" value="{{user.0.2}}" id="myInput" disabled><input type="checkbox" onclick="showPwd()"> <font size=2>Show Password</font> 
   </p>
 </font>
+</div>
 <br> 
 <a href="{{ url_for ('profileupdate', id=user.0.0) }}" class="btn btn-outline-primary" role="button">Update profile</a>
 <a href="#" class="btn btn-outline-danger" role="button" onclick="confirmDel()">Delete account</a>
@@ -44,4 +59,5 @@ function confirmDel() {
   }
 }
 </script>
+</body>
 {% endblock %}
