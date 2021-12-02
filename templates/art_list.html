@@ -1,51 +1,64 @@
 <html>
-<head>
-<h1>Welcome to the art display</h1>
-<!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='hover.css') }}"> -->
-<style>
-table, td, th {
-  border: 1px solid black;
-}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+  <style>
+  div.polaroid {
+    width: 80%;
+    background-color: #f1bbc4;
+    background-color: #ffe1e6e7; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+    text-align: center;
+    margin:0 auto;
+  }
+  
+  div.container {
+    text-align: center;
+    padding: 10px 20px;
+  }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+  .bg-text {
+
+    color: rgb(31, 46, 97);
+    font-weight: bold;
+    position: relative;
+    top: 16%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Aclonica';
+    font-size: 22px;
+  }
 </style>
-</head>
 
-<body style="background-color:#B19CD9;">
-<p>Hope you find something you love ^^</p>
+<body style="background-color:#b6d7e7;">
+  <div class='bg-text'>
+  <center><h1>Welcome to the art display</h1></center>
 
-<!-- <div class="svg-wrapper">
-  <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
-    <rect class="shape" height="60" width="320" />
-  </svg>
-   <div class="text">Artwork Details</div>
-</div> -->
-
-</br></br>
-<table border=5>
-    <tr>
-        <th> Title </th>
-        <th> Artist </th>
-        <th> Genre </th>
-        <th> Year </th>
-        <th> Image </th>
-        <th> No. of likes </th>
-        <th> Like </th>
-    </tr>
-
+  </div>
+</br></br></br></br></br></br>
     {% for item in art %}
-    <tr>
-        <td> {{item.1}} </td>
-        <td> {{item.2}} </td>
-        <td> {{item.3}} </td>
-        <td> {{item.4}} </td>
-        <td> <img src="{{item.5}}" alt="image" width="320" height="240"> </td>
-        <td> {{item.6}} </td>
-        <td> <a href="{{ url_for ('like', pk=item.0) }}">Like</a> </td>
-    </tr>
+    <br>
+    <div class="row">
+      <div class="column">
+          <div class="polaroid">
+            <br><br><img src="{{item.5}}" alt="Artwork" style="width:600px">
+          <div class="container">
+              <h2>{{item.1}}</h2> <!-- Title -->
+              <p class="title"><b>Created by: </b>{{item.2}}</p>
+              <p><b>Genre: </b>{{item.3}}</p>
+              <p><b>Created in the Year: </b>{{item.4}}</p>
+              <p><b>No. of people who have liked this art: </b>{{item.6}}</p>
+              <a href="{{ url_for ('like', pk=item.0) }}">Like</a>
+          </div>
+          </div>
+          <br><br>
+      </div>
+      </div>
+    
     {% endfor %}
 
 </body>
