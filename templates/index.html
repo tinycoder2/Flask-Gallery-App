@@ -1,9 +1,59 @@
-
 {% extends "base.html" %} {% block body %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+<head>    
+<style>
+        body{
+            background-image: url("https://i2.wp.com/i.pinimg.com/originals/d8/5f/4e/d85f4e5310c4ee7e0a549fb60684fe3c.jpg");
+            background-position: auto;
+            background-size: cover;
+            background-repeat: no-repeat;
 
-<div>
+        }
 
-    This is our sample application for gallery. Developed by Swaathy and team!
+        .bg-text {
+            background-color: #F4C2F9;
+            background-color: rgba(255, 230, 253, 0.4); 
+            color: rgb(31, 46, 97);
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Aclonica';
+            font-size: 22px;
+        }
 
-</div>
+    </style>
+</head>  
+    <body>
+
+       <div class="bg-image">
+        
+       </div>
+       <div class='bg-text'>
+        
+        <center>
+            <font color='red'>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            </font>
+            <br>
+            <h1>WELCOME TO OUR ART GALLERY!</h1><br>
+            <h4>A Database Management System project made by Devika, Ramya and Swaathy </h4>
+        </center> 
+        </div> 
+          
+    </body>
+
 {% endblock %}
