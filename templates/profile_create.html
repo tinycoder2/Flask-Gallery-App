@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8"  name="viewport" content="width=device-width, initial-scale=1"> <!--for adding emojis-->
 <style>
-body {
-  background: #ffd1dc;
-}
 
 .content {
   max-width: 500px;
   margin: auto;
-  background: white;
   padding: 10px;
+  background-color: #f1bbc4;
+  background-color: #ffe1e6e7;
+  text-align:center;
 }
 
 input[type=text] {
@@ -22,26 +21,48 @@ input[type=text] {
   border: 2px solid black;
   border-radius: 4px;
 }
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
 </style>
 </head>
 
-<body style="background-color:rgb(172, 205, 207);">
+<body style="background-color:#b6d7e7;"></br></br></br>
     <div class="content">
     <form action="{{ url_for ('artist_create') }}" method="POST" enctype="multipart/form-data">
-        <h3>Hey beautiful artist! </h3>
-        <h4>Let's create a new profile for you! Enter your details below</h4>
-        Username <br><input type="text" name="name" /></br>
+        <center><h3>Hey beautiful artist! </h3>
+        <h4>Let's create a new profile for you! <br> Enter your details below: </h4> </center><br>
+        Username: <br><input type="text" name="name" /></br>
 
-        Password <br><input type="text" name="password" /></br>
+        Password: <br><input type="password" name="password" id="myInput"/></br>
+          <input type="checkbox" onclick="showPwd()"> 
+          <font size=2>Show Password</font> <br>
+          <br>
+        Email ID: <br><input type="text" name="email" /></br>
     
-        Email <br><input type="text" name="email" /></br>
+        About: <br><input type="text" name="about" /></br>
     
-        About <br><input type="text" name="about" /></br>
-    
-        Profile Picture<br><input type="file" name="File" /><br>
+        <br>Upload your Profile Picture: <input type="file" name="File" /><br>
         <br>
-        <input type="submit" value="submit" /><br>
+        <center><input type="submit" value="submit" /></center><br>
     </form>
     </div>
+
+    <script>
+      function showPwd() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+
+      </script>
     </body>
 {% endblock %}
