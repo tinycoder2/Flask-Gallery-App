@@ -553,8 +553,8 @@ def artworkupdate(pk):
             
             print ("Committing the changes")
             connection.commit()
-            pk=get_pk(artist)
-            return redirect(url_for('artview', id=pk))
+            pk1=get_pk(artist)
+            return redirect(url_for('artview', id=pk1))
    
          except Exception as error:
             return_message = str(error)
@@ -574,8 +574,8 @@ def artworkupdate(pk):
          print ("Committing the changes")
          connection.commit()
          
-         pk=get_pk(artist)
-         return redirect(url_for('artview', id=pk))
+         pk1=get_pk(artist)
+         return redirect(url_for('artview', id=pk1))
          
    else: #executes first and shows existing data in the form fields
          

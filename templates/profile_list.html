@@ -30,8 +30,10 @@
 <body style="background-color:#b6d7e7;">
     <center>
     <div class='bg-text'><h1>Meet The Artists</h1></div>
+    
 </br></br></br></br></br></br></br></br></br></br>
     {% for item in profile %}
+    
     <br>
     <div class='bg'>
     <div class="row">
@@ -43,6 +45,7 @@
             <h2>{{item.1}}</h2>
             <p class="title"><b>About Me: </b>{{item.4}}</p>
             <p><b>Email: </b>{{item.3}}</p>
+            <p><b>{{item.1}}</b> has received love from <b>{{item.7}}</b> viewers!</p>
             <a href="{{ url_for ('sendlove', id=item.0) }}">Send love</a><br><br>
         </div>
         </div>
