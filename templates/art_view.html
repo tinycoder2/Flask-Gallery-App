@@ -1,29 +1,95 @@
-{% extends "base.html" %} {% block body %}
-<a href="{{ url_for ('artworkcreate', id=pk) }}" class="btn btn-outline-primary" role="button">Add Artwork</a>
+<html>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
 
 
+  <style>
+    div.polaroid {
+      width: 80%;
+      background-color: #f1bbc4;
+      background-color: #ffe1e6e7; 
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-bottom: 25px;
+      text-align: center;
+      margin:0 auto;
+    }
+    
+    div.container {
+      text-align: center;
+      padding: 10px 20px;
+    }
+    .bg-text {
+      background-color: #f1bbc4;
+      background-color: #ffe1e6e7; 
+      color: rgb(31, 46, 97);
+      font-weight: bold;
+      position: relative;
+      top: 16%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      width: 80%;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Aclonica';
+      font-size: 22px;
+    }
+    .button{
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      border-radius: 8px;
+  }
+  .button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #898BC2;
 
-<table border=5>
-    <tr>
-        <th> Title </th>
-        <th> Genre </th>
-        <th> Year </th>
-        <th> Image </th>
-        <th> Update </th>
-        <th> Delete </th>
+}
+.button1:hover {
+    background-color: #898BC2;
+    color: white;
+}
+</style>
+<br><br><center> <a href="{{ url_for ('artworkcreate', id=pk) }}" class="btn btn-outline-primary" role="button"><button class="button button1">Add new Artwork</button></a></center>
+<!-- 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap.min.css') }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+-->
+<body style="background-color:#b6d7e7;">
+    <center>
+</br></br>
+{% for item in art %}
+<br>
+<div class="mrl">
+<div class="row">
+  <div class="column">
+    <div class="polaroid">
+        <br><br><img src="{{item.5}}" alt="Artwork" style="width:600px">
+        <div class="container">
+          <h2>{{item.1}}</h2> <!-- Title --><br>
+          <p><b>Genre: </b>{{item.3}}</p>
+          <p><b>Created in the Year: </b>{{item.4}}</p>
+          <p><b>No. of people who have liked this art: </b>{{item.6}}</p>
+          <a href="{{ url_for ('artworkupdate', pk=item.0) }}"><button class="button button1">Update your artwork</button></a> <br><br>
+          <a href="{{ url_for ('artworkdelete', pk=item.0) }}"><button class="button button1">Delete your artwork</button></a> 
 
-    </tr>
+      
+      <br><br>
+    </div>
+  </div>
+  </div>
+</div>
+{% endfor %}
+</center>
+</body>
 
-    {% for item in art %}
-    <tr>
-        <td> {{item.1}} </td>
-        <td> {{item.3}} </td>
-        <td> {{item.4}} </td>
-        <td> <img src="{{item.5}}" alt="image" width="320" height="240"> </td>
-        <td> <a href="{{ url_for ('artworkupdate', pk=item.0) }}">Update</a> </td>
-        <td> <a href="{{ url_for ('artworkdelete', pk=item.0) }}">Delete</a> </td>
-    </tr>
-    {% endfor %}
-
-
-{% endblock %}
+</html>    

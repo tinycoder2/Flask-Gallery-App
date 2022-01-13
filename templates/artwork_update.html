@@ -3,16 +3,13 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {
-  background: #ffd1dc;
-}
-
 .content {
-  max-width: 500px;
-  margin: auto;
-  background: white;
-  padding: 10px;
-}
+    max-width: 500px;
+    margin: auto;
+    padding: 10px;
+    background-color: #f1bbc4;
+    background-color: #ffe1e6e7; 
+  }
 
 input[type=text] {
   width: 100%;
@@ -25,11 +22,11 @@ input[type=text] {
 </style>
 </head>
 
-<body style="background-color:rgb(255, 209, 220);">
-<!-- {{art_data}}  shows the object viz a tuple inside list -->
+<body style="background-color:#b6d7e7;"></br></br></br>
+
 <div class="content">
 <form action="#" method="POST" enctype="multipart/form-data">
-    <h3>Update artwork details: </h3>
+  <center><h3>Update artwork details: </h3></center>
     Title:<br>
     <input type="text" name="title" value="{{art_data.0.1}}" /></br>
     <br>
@@ -55,7 +52,7 @@ input[type=text] {
     Update image: 
     <input type="file" name="file" /><br>
     <br>
-    <input type="submit" value="Submit" /><br>
+    <center><input type="submit" value="Submit" /><br></center>
 </form>
 </div>
 </body>

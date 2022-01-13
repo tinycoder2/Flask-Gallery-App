@@ -1,16 +1,62 @@
 {% extends "base.html" %} {% block body %}
+<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+<style>
+  .content {
+  max-width: 500px;
+  margin: auto;
+  background-color: #f1bbc4;
+  background-color: #ffe1e6e7; 
+  padding: 10px;
+  margin-top:10%;
+  text-align:center;
+}
 
-<h2>Login</h2>
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+</style>
+
+<body style="background-color:#b6d7e7;">
+  <div class="content">
+    <h2>Login</h2><br><br>
 {% if error %}
 <p class=error><strong>Error:</strong> {{ error }}{% endif %}
     <form action="{{ url_for('login') }}" method=post>
-        <dl>
+      <dl>
             <dt>Username:
     <dd><input type=text name=username>
     <dt>Password:
-    <dd><input type=password name=password>
+    <dd><input type=password name=password id="myInput">
+      <input type="checkbox" onclick="showPwd()"> 
+          <font size=2>Show Password</font> <br>
+          <br>
     <dd><input type=submit value=Login>
   </dl>
 </form>
+</div>
+<script>
+  function showPwd() {
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
 
+  </script>
+</body>
 {% endblock %}

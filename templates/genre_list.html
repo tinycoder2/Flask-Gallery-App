@@ -1,47 +1,69 @@
 <html>
 <head>
-<h1>Welcome to the Genres page</h1>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='hover.css') }}">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>  
+
 <style>
-table, td, th {
-  border: 1px solid black;
-}
+  div.polaroid {
+    width: 60%;
+    background-color: #f1bbc4;
+    background-color: #ffe1e6e7; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+    text-align: center;
+    margin:0 auto;
+  }
+  
+  div.container {
+    text-align: center;
+    padding: 10px 20px;
+  }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-</style>
+  .bg-text {
+
+    color: rgb(31, 46, 97);
+    font-weight: bold;
+    position: relative;
+    top: 16%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 60%;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Aclonica';
+    font-size: 22px;
+  }
+</style> 
+<!-- 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap.min.css') }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+-->
 </head>
-
-<body style="background-color:#B19CD9;">
-
-<a href="{{ url_for ('creategenre') }}">Add a new genre</a>
-<div class="svg-wrapper">
-  <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
-    <rect class="shape" height="60" width="320" />
-  </svg>
-   <div class="text">Various Genres</div>
+<body style="background-color:#D9B5E0;">
+  <div class='bg-text'>
+  <center> <h1>Welcome to the Genres page</h1> </center>
 </div>
+</br></br></br></br>
+<center> <a href="{{ url_for ('creategenre') }}" class="btn btn-outline-primary" role="button">Add a new genre</a></center>
 </br></br>
-<table border=5>
-    <tr>
-        <th> Name </th>
-        <th> About </th>
-        <th> Date modified </th>
-        <th> Edit </th>
-        <th> Delete </th>
-    </tr>
-
     {% for item in g_rows %}
-    <tr>
-        <td> {{item.1}} </td>
-        <td> {{item.2}} </td>
-        <td> {{item.3}} </td>
-        <td> <a href="{{ url_for ('genreupdate', id = item.0) }}">Update About section</a> </td>
-        <td> <a href="{{ url_for ('genredelete', id = item.0) }}">Delete genre</a> </td>
-    </tr>
-    {% endfor %}
-
+    <br>
+    <div class="row">
+      <div class="column">
+          <div class="polaroid">
+            <div class="container">
+        <p><b>Name: </b>{{item.1}}</p>
+        <p><b>About: </b>{{item.2}} </p>
+        <p><b>Date modified: </b>{{item.3}} </p>
+        <p> <a href="{{ url_for ('genreupdate', id = item.0) }}">Update About section</a> </p>
+        <p> <a href="{{ url_for ('genredelete', id = item.0) }}">Delete genre</a> </p>
+    
+  </div>
+</div><br>
+</div>
+</div>
+{% endfor %}
 </body>
-</html>    
+</html> 
