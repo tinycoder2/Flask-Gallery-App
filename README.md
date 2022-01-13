@@ -4,7 +4,7 @@ A DBMS project using flask, SQLite made by me and my teammates @R-my-T and @devi
 
 Do check the WebsiteScreenshots.pdf to see how it all turned out!
 
-####Note :  
+#### Note :  
 In this project we have hardcoded the tables instead of making use of flasks sqlalchemy library, 
 so that we would have a solid understanding of how the queries are processed.
 
